@@ -1,32 +1,565 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <title>J220 Group Project</title>
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Raginee Sudhir Chaurey — Journalist & Reporter</title>
 
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
 
-    <header class="container">
-      <div class="p-5 my-4 rounded-3 bg-body-secondary">
-        <div class="container-fluid py-5">
-          <h1 class="display-5 fw-bold">Your Name Here</h1>
-          <p class="fs-4">A short tagline about yourself.</p>
+  <style>
+    :root {
+      --ink:     #1a1a1a;
+      --paper:   #f5f0e8;
+      --cream:   #ede7d9;
+      --accent:  #b5451b;
+      --accent2: #2c4a6e;
+      --rule:    #c8b89a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      background-color: var(--ink);
+      color: var(--paper);
+      padding: 3.5rem 0 2.5rem;
+      border-bottom: 6px double var(--accent);
+      position: relative;
+      overflow: hidden;
+    }
+    .masthead::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 39px,
+        rgba(255,255,255,.04) 39px,
+        rgba(255,255,255,.04) 40px
+      );
+      pointer-events: none;
+    }
+    .masthead-kicker {
+      font-family: 'Source Serif 4', serif;
+      font-size: .72rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--rule);
+      margin-bottom: .5rem;
+    }
+    .masthead h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.6rem, 6vw, 4.6rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      color: #fff;
+    }
+    .masthead h1 span { color: var(--accent); }
+    .masthead-sub {
+      font-family: 'Source Serif 4', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--rule);
+      margin-top: .75rem;
+    }
+    .masthead-contact a {
+      color: var(--paper);
+      text-decoration: none;
+      font-size: .85rem;
+      letter-spacing: .04em;
+      margin-right: 1.4rem;
+      opacity: .75;
+      transition: opacity .2s;
+    }
+    .masthead-contact a:hover { opacity: 1; color: var(--accent); }
+    .masthead-contact { margin-top: 1.4rem; }
+
+    /* ── RULE / SECTION LABEL ── */
+    .section-rule {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .section-rule span {
+      font-family: 'Source Serif 4', serif;
+      font-size: .68rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    .section-rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* ── BYLINE STRIP ── */
+    .byline-strip {
+      background: var(--cream);
+      border-top: 1px solid var(--rule);
+      border-bottom: 3px solid var(--ink);
+      padding: .6rem 0;
+      font-size: .78rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #555;
+    }
+    .byline-strip .badge-outlet {
+      background: var(--accent);
+      color: #fff;
+      font-size: .65rem;
+      letter-spacing: .1em;
+      padding: .25em .7em;
+      border-radius: 0;
+      font-family: 'Source Serif 4', serif;
+      font-style: normal;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    main { padding: 3.5rem 0 4rem; }
+
+    /* ── PROFILE CARD ── */
+    .profile-card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-top: 4px solid var(--accent2);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .profile-initials {
+      width: 72px; height: 72px;
+      background: var(--accent2);
+      color: #fff;
+      border-radius: 50%;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .profile-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+    }
+    .profile-card p {
+      font-size: .93rem;
+      color: #444;
+      margin-bottom: 0;
+    }
+
+    /* ── SKILLS SIDEBAR ── */
+    .skills-box {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+    }
+    .skills-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(255,255,255,.2);
+      padding-bottom: .6rem;
+      margin-bottom: 1.2rem;
+      color: #fff;
+    }
+    .skill-item {
+      font-size: .82rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--rule);
+      padding: .35rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .skill-item i { color: var(--accent); font-size: .75rem; }
+
+    /* ── STAT BOXES ── */
+    .stat-box {
+      background: var(--cream);
+      border-left: 4px solid var(--accent);
+      padding: 1.2rem 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #666;
+      margin-top: .25rem;
+    }
+
+    /* ── STORY CARDS ── */
+    .story-card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      margin-bottom: 2rem;
+      transition: box-shadow .25s, transform .25s;
+      cursor: default;
+    }
+    .story-card:hover {
+      box-shadow: 6px 6px 0 var(--ink);
+      transform: translate(-3px, -3px);
+    }
+    .story-card-header {
+      background: var(--accent2);
+      padding: .9rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .story-card-header .badge-cat {
+      font-size: .65rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.7);
+      font-family: 'Source Serif 4', serif;
+    }
+    .story-card-header .badge-views {
+      font-size: .68rem;
+      color: #fff;
+      background: rgba(255,255,255,.15);
+      padding: .2em .6em;
+      border-radius: 2px;
+    }
+    .story-card-body { padding: 1.6rem; }
+    .story-card-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: .75rem;
+    }
+    .story-card-body h3 em { color: var(--accent); font-style: normal; }
+    .story-card-body p { font-size: .93rem; color: #444; margin-bottom: 1rem; }
+    .story-tag {
+      display: inline-block;
+      font-size: .62rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      padding: .2em .7em;
+      margin-right: .4rem;
+      margin-bottom: .4rem;
+      color: #555;
+    }
+
+    /* ── BROADCAST CARD ── */
+    .broadcast-card {
+      background: var(--accent2);
+      color: #fff;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .broadcast-card::before {
+      content: '📡';
+      position: absolute;
+      right: 1.5rem; top: 1rem;
+      font-size: 3rem;
+      opacity: .12;
+    }
+    .broadcast-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: .5rem;
+    }
+    .broadcast-card .outlet-tag {
+      font-size: .65rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,.15);
+      padding: .25em .8em;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+    .broadcast-card p { font-size: .9rem; opacity: .85; margin-bottom: 0; }
+    .broadcast-stat {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #ffd580;
+      line-height: 1;
+    }
+    .broadcast-stat-label {
+      font-size: .65rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .7;
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      border-left: 5px solid var(--accent);
+      padding: 1.2rem 1.6rem;
+      background: var(--cream);
+      margin: 1.5rem 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+    .pull-quote cite {
+      display: block;
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-style: normal;
+      color: #888;
+      margin-top: .6rem;
+      font-family: 'Source Serif 4', serif;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: var(--rule);
+      padding: 2rem 0;
+      font-size: .8rem;
+      letter-spacing: .06em;
+      border-top: 4px double var(--accent);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── UTILITIES ── */
+    .divider-double {
+      border: none;
+      border-top: 3px double var(--rule);
+      margin: 2.5rem 0;
+    }
+    @media (max-width: 767px) {
+      .masthead h1 { font-size: 2.4rem; }
+      .story-card-body h3 { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ MASTHEAD ══ -->
+  <header class="masthead">
+    <div class="container">
+      <p class="masthead-kicker">Person E &mdash; Group Portfolio</p>
+      <h1>Raginee<br><span>Sudhir Chaurey</span></h1>
+      <p class="masthead-sub">Journalist &middot; Reporter &middot; Multimedia Storyteller</p>
+      <div class="masthead-contact">
+        <a href="mailto:raginee_chaurey@berkeley.edu"><i class="bi bi-envelope-fill me-1"></i>raginee_chaurey@berkeley.edu</a>
+        <a href="tel:+15107053021"><i class="bi bi-telephone-fill me-1"></i>+1 (510) 705-3021</a>
+        <a href="#"><i class="bi bi-geo-alt-fill me-1"></i>Berkeley, CA</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ BYLINE STRIP ══ -->
+  <div class="byline-strip">
+    <div class="container d-flex flex-wrap align-items-center gap-3">
+      <span class="badge-outlet">UC Berkeley Graduate Journalism</span>
+      <span>Formerly: <strong>DD India / Doordarshan</strong></span>
+      <span class="ms-auto d-none d-md-inline">Oakland &bull; Data Journalism &bull; Multimedia</span>
+    </div>
+  </div>
+
+  <!-- ══ MAIN ══ -->
+  <main>
+    <div class="container">
+      <div class="row g-4">
+
+        <!-- ── LEFT COLUMN ── -->
+        <div class="col-12 col-lg-4 order-lg-2">
+
+          <!-- Profile -->
+          <div class="profile-card">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="profile-initials">RSC</div>
+              <div>
+                <h2>Raginee Sudhir Chaurey</h2>
+                <p class="fst-italic text-muted" style="font-size:.82rem;">Graduate Journalist, UC Berkeley</p>
+              </div>
+            </div>
+            <p>Reporter and multimedia journalist trained at UC Berkeley. Specializes in urban policy, public health, and community-centered storytelling across print, data, and broadcast.</p>
+          </div>
+
+          <!-- Impact Stats -->
+          <div class="section-rule"><span>By the Numbers</span></div>
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <div class="stat-box">
+                <div class="stat-number">15K+</div>
+                <div class="stat-label">Views in 24 hrs</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="stat-box">
+                <div class="stat-number">1.2M</div>
+                <div class="stat-label">YouTube Views</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="stat-box">
+                <div class="stat-number">60%</div>
+                <div class="stat-label">Channel Growth</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="stat-box">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Major Investigations</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skills -->
+          <div class="skills-box">
+            <h3>Skills &amp; Tools</h3>
+            <div class="skill-item"><i class="bi bi-check2"></i>Data Journalism &amp; Analysis</div>
+            <div class="skill-item"><i class="bi bi-check2"></i>Investigative Reporting</div>
+            <div class="skill-item"><i class="bi bi-check2"></i>Multimedia Production</div>
+            <div class="skill-item"><i class="bi bi-check2"></i>HTML &amp; CSS</div>
+            <div class="skill-item"><i class="bi bi-check2"></i>Python (Data Analysis)</div>
+            <div class="skill-item"><i class="bi bi-check2"></i>Content Analytics</div>
+            <div class="skill-item"><i class="bi bi-check2"></i>Broadcast Producing</div>
+            <div class="skill-item"><i class="bi bi-check2"></i>Community Sourcing</div>
+          </div>
+
+        </div>
+
+        <!-- ── RIGHT COLUMN ── -->
+        <div class="col-12 col-lg-8 order-lg-1">
+
+          <div class="section-rule"><span>Featured Work</span></div>
+
+          <!-- Story 1 -->
+          <div class="story-card">
+            <div class="story-card-header">
+              <span class="badge-cat"><i class="bi bi-file-text me-1"></i>Urban Policy / Investigative</span>
+              <span class="badge-views"><i class="bi bi-eye me-1"></i>15,000+ views in 24 hrs</span>
+            </div>
+            <div class="story-card-body">
+              <h3>Oakland's <em>Encampment Abatement Policy</em> — A Community Divided</h3>
+              <p>Reported from city council chambers from early-morning sessions to midnight public comments, this investigation brought together the voices of unhoused residents, business owners, and policymakers to interrogate whether compassion and enforcement could coexist in Oakland.</p>
+
+              <div class="pull-quote">
+                "Ashley Greene had lived in a tent near 98th Avenue for over a year and had been on shelter waitlists for months. Kevin Hester said his East Oakland construction business was on the verge of leaving."
+                <cite>— Field Reporting, Oakland</cite>
+              </div>
+
+              <p>Through months of relationship-building and trust-earning interviews, the story revealed systemic gaps in shelter access and the human cost of policy decisions made in council chambers far from the street.</p>
+              <div>
+                <span class="story-tag">Oakland</span>
+                <span class="story-tag">Housing</span>
+                <span class="story-tag">Encampment Policy</span>
+                <span class="story-tag">Investigative</span>
+                <span class="story-tag">Community Reporting</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Story 2 -->
+          <div class="story-card">
+            <div class="story-card-header">
+              <span class="badge-cat"><i class="bi bi-bar-chart me-1"></i>Data Journalism / Public Health</span>
+              <span class="badge-views"><i class="bi bi-layers me-1"></i>Multimedia Project</span>
+            </div>
+            <div class="story-card-body">
+              <h3><em>Oakland's Silent Killer</em> — The Drug Overdose Crisis</h3>
+              <p>A multimedia investigation combining street-level reporting with independent statistical analysis of Alameda County drug use and death data. By interviewing people living through addiction, harm-reduction workers, and public health experts, the project transformed county-wide numbers into a human portrait of the overdose epidemic.</p>
+              <p>The work demonstrated that the most powerful data journalism is built on community trust, not spreadsheets alone.</p>
+              <div>
+                <span class="story-tag">Public Health</span>
+                <span class="story-tag">Data Analysis</span>
+                <span class="story-tag">Alameda County</span>
+                <span class="story-tag">Overdose Crisis</span>
+                <span class="story-tag">Multimedia</span>
+              </div>
+            </div>
+          </div>
+
+          <hr class="divider-double"/>
+
+          <div class="section-rule"><span>Broadcast Experience</span></div>
+
+          <!-- Broadcast -->
+          <div class="broadcast-card">
+            <div class="outlet-tag">DD India &mdash; Doordarshan Public Broadcaster</div>
+            <h3>Producer &amp; Reporter — Voice of the Global South</h3>
+            <p class="mb-3">Served as editorial head of a weekly show covering global markets, policy, and politics on one of India's largest public broadcasters. Grew the channel's reach by 60% and built explainer content that connected global policy to everyday audiences.</p>
+            <div class="d-flex gap-4 flex-wrap mt-3">
+              <div>
+                <div class="broadcast-stat">1.2M</div>
+                <div class="broadcast-stat-label">YouTube Views on Explainers</div>
+              </div>
+              <div>
+                <div class="broadcast-stat">60%</div>
+                <div class="broadcast-stat-label">Channel Reach Growth</div>
+              </div>
+              <div>
+                <div class="broadcast-stat">Weekly</div>
+                <div class="broadcast-stat-label">Show Cadence as Editorial Head</div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="divider-double"/>
+
+          <div class="section-rule"><span>Approach to Journalism</span></div>
+          <div class="pull-quote">
+            "The most powerful reporting came not from documents alone, but from knowing how to walk into a community, listen without agenda, and ask the questions that matter."
+            <cite>— Raginee Sudhir Chaurey</cite>
+          </div>
+          <p style="font-size:.93rem; color:#444;">Raginee's reporting methodology combines rigorous data analysis with deep community sourcing — a dual approach honed at UC Berkeley's Graduate School of Journalism. Whether covering urban housing policy or public health crises, her work centers the human beings behind the statistics.</p>
+
         </div>
       </div>
-    </header>
+    </div>
+  </main>
 
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <span>Raginee Sudhir Chaurey &mdash; Person E &mdash; Group Assignment</span>
+      <span>
+        <a href="mailto:raginee_chaurey@berkeley.edu">raginee_chaurey@berkeley.edu</a>
+        &nbsp;&bull;&nbsp;
+        <a href="tel:+15107053021">+1 (510) 705-3021</a>
+      </span>
+    </div>
+  </footer>
 
-    <section class="container col-12 col-lg-6">
-
-      <h3 class="fw-bold">Change this headline </h3>
-      <p>The following post can be a reflection of your professional work, a hobby or interest, or another similar post. Journalism students can use this post to show case a few projects.</p>
-      <p>If you with to embed an image, include it in this folder, and link to it using the img tag.</p>
-
-    </section>
-
-
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
